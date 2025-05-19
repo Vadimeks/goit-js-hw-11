@@ -1,65 +1,55 @@
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
-const form = document.querySelector('.form');
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
+const galleryContainer = document.querySelector('.gallery');
+let lightbox;
 
-  const delayInput = this.elements.delay;
-  const stateRadios = this.elements.state;
-  const delay = Number(delayInput.value);
-  let selectedState = null;
+export function createGallery(images) {
+  const markup = images
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `
+            <li class="gallery-item">
+                <a href="${largeImageURL}">
+                    <img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy" />
+                    <div class="info">
+                        <p class="info-item"><b>Likes</b> ${likes}</p>
+                        <p class="info-item"><b>Views</b> ${views}</p>
+                        <p class="info-item"><b>Comments</b> ${comments}</p>
+                        <p class="info-item"><b>Downloads</b> ${downloads}</p>
+                    </div>
+                </a>
+            </li>
+        `
+    )
+    .join('');
 
-  for (const radio of stateRadios) {
-    if (radio.checked) {
-      selectedState = radio.value;
-      break;
-    }
+  galleryContainer.innerHTML = markup;
+
+  if (lightbox) {
+    lightbox.refresh();
+  } else {
+    lightbox = new SimpleLightbox('.gallery a');
   }
+}
 
-  if (isNaN(delay)) {
-    iziToast.error({
-      title: 'Error',
-      message: 'Please enter a valid delay in milliseconds',
-      position: 'topRight',
-    });
-    return;
-  }
+export function clearGallery() {
+  galleryContainer.innerHTML = '';
+}
 
-  if (!selectedState) {
-    iziToast.warning({
-      title: 'Warning',
-      message: 'Please select the state of the promise (Fulfilled or Rejected)',
-      position: 'topRight',
-    });
-    return;
-  }
+export function showLoader() {
+  const loader = document.querySelector('.loader');
+  loader.classList.add('is-loading');
+}
 
-  const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (selectedState === 'fulfilled') {
-        resolve(delay);
-      } else if (selectedState === 'rejected') {
-        reject(delay);
-      }
-    }, delay);
-  });
-
-  promise
-    .then(resolvedDelay => {
-      iziToast.success({
-        title: 'Success',
-        message: `✅ Fulfilled promise in ${resolvedDelay}ms`,
-        position: 'topRight',
-      });
-    })
-    .catch(rejectedDelay => {
-      iziToast.error({
-        title: 'Error',
-        message: `❌ Rejected promise in ${rejectedDelay}ms`,
-        position: 'topRight',
-      });
-    });
-
-  this.reset();
-});
+export function hideLoader() {
+  const loader = document.querySelector('.loader');
+  loader.classList.remove('is-loading');
+}
