@@ -7,9 +7,6 @@
 /* Common styles */
 @import url('./reset.css');
 @import url('./base.css');
-@import url('./container.css');
-@import url('./animations.css');
+
 
 /* styles of pages */
-@import url('./1-timer.css');
-@import url('./2-snackbar.css');
