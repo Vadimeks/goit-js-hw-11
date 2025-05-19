@@ -1,0 +1,58 @@
+body {
+    font-family: sans-serif;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.timer {
+    display: flex;
+    gap: 30px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.value {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+}
+
+.label {
+    font-size: 14px;
+    color: #777;
+    text-transform: uppercase;
+}
+
+.flatpickr-input {
+    /* max-height: 30px; */
+    padding: 4px 20px;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+button[data-start] {
+    padding: 8px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[data-start]:hover {
+    background-color: #0056b3;
+}
