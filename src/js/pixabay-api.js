@@ -3,14 +3,14 @@ import axios from 'axios';
 const API_KEY = '50377156-76a0d970257c0a39042cd42de';
 const BASE_URL = 'https://pixabay.com/api/';
 
-// delay (for testing only)
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// Delay for spiner (for testing only)
+//  function delay(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 export async function getImagesByQuery(query) {
   try {
-    await delay(2000); //
+    // await delay(2000);
 
     const response = await axios.get(`${BASE_URL}`, {
       params: {
